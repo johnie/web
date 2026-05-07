@@ -1,0 +1,7 @@
+name: Crip in Tech
+description: Incubator for crips in tech
+url: https://crip.io/
+projectType: web
+image: /crip.svg
+order: 1
+active: false
