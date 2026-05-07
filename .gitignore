@@ -7,4 +7,5 @@ node_modules/
 .tsbuildinfo
 .tanstack/
 .wrangler/
+.content-collections/
 worker-configuration.d.ts
