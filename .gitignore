@@ -1,0 +1,8 @@
+dist/
+build/
+node_modules/
+*.log
+*.lock
+.DS_Store
+.tsbuildinfo
+.tanstack/
