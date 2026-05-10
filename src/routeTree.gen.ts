@@ -9,14 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AboutRouteImport } from './routes/about'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as FeedDotxmlRouteImport } from './routes/feed[.]xml'
+import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WritingIndexRouteImport } from './routes/writing/index'
 import { Route as WritingSplatRouteImport } from './routes/writing/$'
 
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedDotxmlRoute = FeedDotxmlRouteImport.update({
+  id: '/feed.xml',
+  path: '/feed.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SplatRoute = SplatRouteImport.update({
+  id: '/$',
+  path: '/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,45 +55,100 @@ const WritingSplatRoute = WritingSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/$': typeof SplatRoute
+  '/feed.xml': typeof FeedDotxmlRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/writing/$': typeof WritingSplatRoute
   '/writing/': typeof WritingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/$': typeof SplatRoute
+  '/feed.xml': typeof FeedDotxmlRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/writing/$': typeof WritingSplatRoute
   '/writing': typeof WritingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/$': typeof SplatRoute
+  '/feed.xml': typeof FeedDotxmlRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/writing/$': typeof WritingSplatRoute
   '/writing/': typeof WritingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/writing/$' | '/writing/'
+  fullPaths:
+    | '/'
+    | '/$'
+    | '/feed.xml'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/writing/$'
+    | '/writing/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/writing/$' | '/writing'
-  id: '__root__' | '/' | '/about' | '/writing/$' | '/writing/'
+  to:
+    | '/'
+    | '/$'
+    | '/feed.xml'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/writing/$'
+    | '/writing'
+  id:
+    | '__root__'
+    | '/'
+    | '/$'
+    | '/feed.xml'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/writing/$'
+    | '/writing/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
+  SplatRoute: typeof SplatRoute
+  FeedDotxmlRoute: typeof FeedDotxmlRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   WritingSplatRoute: typeof WritingSplatRoute
   WritingIndexRoute: typeof WritingIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feed.xml': {
+      id: '/feed.xml'
+      path: '/feed.xml'
+      fullPath: '/feed.xml'
+      preLoaderRoute: typeof FeedDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -104,7 +177,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
+  SplatRoute: SplatRoute,
+  FeedDotxmlRoute: FeedDotxmlRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   WritingSplatRoute: WritingSplatRoute,
   WritingIndexRoute: WritingIndexRoute,
 }

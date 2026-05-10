@@ -2,6 +2,7 @@ import { MDXContent } from "@content-collections/mdx/react";
 import type { Link } from "@tanstack/react-router";
 import { Link as RouterLink } from "@tanstack/react-router";
 import type { ImgHTMLAttributes } from "react";
+import { Badge } from "./ui/badge";
 
 type CustomLinkProps = React.ComponentProps<typeof Link> & {
   children?: React.ReactNode;
@@ -37,6 +38,7 @@ export const components = {
   a: CustomLink,
   img: RoundedImage,
   Image: RoundedImage,
+  Badge,
 };
 
 export type MDXComponents = typeof components;
