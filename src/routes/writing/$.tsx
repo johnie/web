@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { allPosts } from "content-collections";
 import { PostFooterCta } from "@/components/cta-footer";
+import { Divider } from "@/components/divider";
 import { MDX } from "@/components/mdx";
 import { buildSeo, jsonLdScript } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
@@ -80,10 +81,30 @@ function PostPage() {
     throw notFound();
   }
 
+  const publishedDate = new Date(page.publishedAt);
+  const formattedDate = publishedDate.toLocaleDateString("sv-SE", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-8">
       <article className="mdx-content" id="post-start">
-        <h1 className="mb-0 text-2xl">{page.title}</h1>
+        <div className="mb-4 flex items-center gap-3 px-4 font-medium font-mono text-muted-foreground text-xs">
+          <span className="font-bold text-emerald-400">#{page.edition}</span>
+          <span className="text-border-foreground">·</span>
+          <time>{formattedDate}</time>
+          <span className="text-border-foreground">·</span>
+          <span>{page.readingTime}</span>
+        </div>
+        <h1 className="mb-4 font-bold text-2xl tracking-tight">{page.title}</h1>
+        {page.leading && (
+          <p className="mt-0 font-mono text-muted-foreground text-sm">
+            {page.summary}
+          </p>
+        )}
+        <Divider />
         <MDX code={page.mdx} />
       </article>
 

@@ -98,6 +98,7 @@ const PostSchema = z.object({
   summary: z.string(),
   image: z.string().optional(),
   leading: z.boolean().optional().default(false),
+  edition: z.coerce.number().optional(),
   content: z.string(),
 });
 
