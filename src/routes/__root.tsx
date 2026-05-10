@@ -10,11 +10,39 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import type * as React from "react";
 import { Logo } from "@/components/logo";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_KEYWORDS,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site";
 import appCss from "@/styles/app.css?url";
 
 export const Route = createRootRoute({
   head: () => ({
-    links: [{ rel: "stylesheet", href: appCss }],
+    meta: [
+      { charSet: "utf-8" },
+      { title: SITE_NAME },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "description", content: DEFAULT_DESCRIPTION },
+      { name: "author", content: SITE_NAME },
+      { name: "keywords", content: DEFAULT_KEYWORDS.join(", ") },
+      { name: "robots", content: "index, follow" },
+      {
+        name: "googlebot",
+        content:
+          "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1",
+      },
+    ],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico" },
+      {
+        rel: "alternate",
+        type: "application/rss+xml",
+        href: `${SITE_URL}/feed.xml`,
+      },
+    ],
   }),
   component: RootComponent,
 });

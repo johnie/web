@@ -6,6 +6,7 @@ import { compileMDX, type Options } from "@content-collections/mdx";
 import remarkGfm from "remark-gfm";
 import { highlight } from "remark-sugar-high";
 import z from "zod";
+import { absoluteUrl, SITE_URL } from "./src/lib/site";
 
 function run(cmd: string) {
   return new Promise((resolve, reject) => {
@@ -51,14 +52,12 @@ const setStructuredData = (doc: {
   datePublished: doc.publishedAt,
   dateModified: doc.publishedAt,
   description: doc.summary,
-  image: doc.image
-    ? `https://johnie.se${doc.image}`
-    : `https://johnie.se/og?title=${encodeURIComponent(doc.title)}`,
-  url: `https://johnie.se/writing/${doc._meta.path}`,
+  image: absoluteUrl(doc.image ?? "/images/og-image.png"),
+  url: absoluteUrl(`/writing/${doc._meta.path}`),
   author: {
     "@type": "Person",
     name: "Johnie Hjelm",
-    url: "https://johnie.se",
+    url: SITE_URL,
   },
   publisher: {
     "@type": "Person",
@@ -66,9 +65,29 @@ const setStructuredData = (doc: {
   },
   mainEntityOfPage: {
     "@type": "WebPage",
-    "@id": `https://johnie.se/writing/${doc._meta.path}`,
+    "@id": absoluteUrl(`/writing/${doc._meta.path}`),
   },
 });
+
+interface CacheContext {
+  cache: <T>(key: string, fn: (key: string) => Promise<T>) => Promise<T>;
+}
+
+const getLastModified = async (
+  context: CacheContext,
+  filePath: string,
+  directory: string
+) =>
+  context.cache(filePath, async (cachedFilePath) => {
+    try {
+      const stdout = (await run(
+        `git log -1 --format=%ai -- ${directory}/${cachedFilePath}`
+      )) as string;
+      return new Date(stdout.toString().trim()).toISOString();
+    } catch {
+      return new Date().toISOString();
+    }
+  });
 
 const PostSchema = z.object({
   title: z.string(),
@@ -109,18 +128,10 @@ const Post = defineCollection({
       wordsPerMinute: 275,
     }).text;
     const structuredData = setStructuredData(document);
-    const lastModified = await context.cache(
+    const lastModified = await getLastModified(
+      context,
       document._meta.filePath,
-      async (filePath) => {
-        try {
-          const stdout = (await run(
-            `git log -1 --format=%ai -- content/writing/${filePath}`
-          )) as string;
-          return new Date(stdout.toString().trim()).toISOString();
-        } catch {
-          return new Date().toISOString();
-        }
-      }
+      "content/writing"
     );
 
     return {
@@ -147,10 +158,16 @@ const Page = defineCollection({
   transform: async (document, context) => {
     const mdx = await compileMDX(context, document, mdxOptions);
     const slug = document._meta.path;
+    const lastModified = await getLastModified(
+      context,
+      document._meta.filePath,
+      "content/page"
+    );
 
     return {
       ...document,
       slug,
+      lastModified,
       mdx,
     };
   },
