@@ -9,3 +9,6 @@ node_modules/
 .wrangler/
 .content-collections/
 worker-configuration.d.ts
+skills-lock.json
+
+skills/
