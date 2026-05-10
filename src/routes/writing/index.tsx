@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { allPosts } from "content-collections";
 
-export const Route = createFileRoute("/posts/")({
+export const Route = createFileRoute("/writing/")({
   component: PostsIndex,
   loader: () => ({
     posts: [...allPosts].sort((a, b) =>
@@ -22,7 +22,7 @@ function PostsIndex() {
             <Link
               className="block"
               params={{ _splat: post._meta.path }}
-              to="/posts/$"
+              to="/writing/$"
             >
               <h2 className="font-medium text-lg">{post.title}</h2>
               <p className="text-sm opacity-70">{post.summary}</p>

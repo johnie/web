@@ -11,8 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PostsIndexRouteImport } from './routes/posts/index'
-import { Route as PostsSplatRouteImport } from './routes/posts/$'
+import { Route as WritingIndexRouteImport } from './routes/writing/index'
+import { Route as WritingSplatRouteImport } from './routes/writing/$'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -24,49 +24,49 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PostsIndexRoute = PostsIndexRouteImport.update({
-  id: '/posts/',
-  path: '/posts/',
+const WritingIndexRoute = WritingIndexRouteImport.update({
+  id: '/writing/',
+  path: '/writing/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PostsSplatRoute = PostsSplatRouteImport.update({
-  id: '/posts/$',
-  path: '/posts/$',
+const WritingSplatRoute = WritingSplatRouteImport.update({
+  id: '/writing/$',
+  path: '/writing/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/posts/$': typeof PostsSplatRoute
-  '/posts/': typeof PostsIndexRoute
+  '/writing/$': typeof WritingSplatRoute
+  '/writing/': typeof WritingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/posts/$': typeof PostsSplatRoute
-  '/posts': typeof PostsIndexRoute
+  '/writing/$': typeof WritingSplatRoute
+  '/writing': typeof WritingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/posts/$': typeof PostsSplatRoute
-  '/posts/': typeof PostsIndexRoute
+  '/writing/$': typeof WritingSplatRoute
+  '/writing/': typeof WritingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/posts/$' | '/posts/'
+  fullPaths: '/' | '/about' | '/writing/$' | '/writing/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/posts/$' | '/posts'
-  id: '__root__' | '/' | '/about' | '/posts/$' | '/posts/'
+  to: '/' | '/about' | '/writing/$' | '/writing'
+  id: '__root__' | '/' | '/about' | '/writing/$' | '/writing/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  PostsSplatRoute: typeof PostsSplatRoute
-  PostsIndexRoute: typeof PostsIndexRoute
+  WritingSplatRoute: typeof WritingSplatRoute
+  WritingIndexRoute: typeof WritingIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,18 +85,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/posts/': {
-      id: '/posts/'
-      path: '/posts'
-      fullPath: '/posts/'
-      preLoaderRoute: typeof PostsIndexRouteImport
+    '/writing/': {
+      id: '/writing/'
+      path: '/writing'
+      fullPath: '/writing/'
+      preLoaderRoute: typeof WritingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/posts/$': {
-      id: '/posts/$'
-      path: '/posts/$'
-      fullPath: '/posts/$'
-      preLoaderRoute: typeof PostsSplatRouteImport
+    '/writing/$': {
+      id: '/writing/$'
+      path: '/writing/$'
+      fullPath: '/writing/$'
+      preLoaderRoute: typeof WritingSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -105,8 +105,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  PostsSplatRoute: PostsSplatRoute,
-  PostsIndexRoute: PostsIndexRoute,
+  WritingSplatRoute: WritingSplatRoute,
+  WritingIndexRoute: WritingIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

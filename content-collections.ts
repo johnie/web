@@ -3,7 +3,8 @@ import { createHash } from "node:crypto";
 import { statSync } from "node:fs";
 import { defineCollection, defineConfig } from "@content-collections/core";
 import { compileMDX, type Options } from "@content-collections/mdx";
-import { remarkPlugins } from "@prose-ui/core";
+import remarkGfm from "remark-gfm";
+import { highlight } from "remark-sugar-high";
 import z from "zod";
 
 function run(cmd: string) {
@@ -34,7 +35,7 @@ const getFileCreationDate = (filePath: string) => {
 };
 
 const mdxOptions: Options = {
-  remarkPlugins: remarkPlugins(),
+  remarkPlugins: [remarkGfm, highlight],
 };
 
 const setStructuredData = (doc: {
@@ -98,7 +99,7 @@ const calcReadingTime = (
 
 const Post = defineCollection({
   name: "Post",
-  directory: "content/",
+  directory: "content/writing/",
   include: "*.mdx",
   schema: PostSchema,
   transform: async (document, context) => {
@@ -113,7 +114,7 @@ const Post = defineCollection({
       async (filePath) => {
         try {
           const stdout = (await run(
-            `git log -1 --format=%ai -- content/${filePath}`
+            `git log -1 --format=%ai -- content/writing/${filePath}`
           )) as string;
           return new Date(stdout.toString().trim()).toISOString();
         } catch {
@@ -203,9 +204,9 @@ const Project = defineCollection({
   },
 });
 
-export const TodayILearned = defineCollection({
-  name: "TodayILearned",
-  directory: "content/til",
+export const Notes = defineCollection({
+  name: "Notes",
+  directory: "content/notes/",
   include: "*.mdx",
   schema: z.object({
     publishedAt: z
@@ -236,5 +237,5 @@ export const TodayILearned = defineCollection({
 });
 
 export default defineConfig({
-  content: [Post, Page, Work, Project, TodayILearned],
+  content: [Post, Page, Work, Project, Notes],
 });

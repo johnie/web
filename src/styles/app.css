@@ -3,8 +3,7 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/geist-mono";
-@import "@prose-ui/style/prose-ui.css";
-@import "@prose-ui/style/katex.css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -41,9 +40,20 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --p-font-family-heading: var(--font-heading);
-  --p-font-family: var(--font-sans);
-  --p-color-bg: var(--background);
+  --sh-background: #101010;
+  --sh-border: #282828;
+  --sh-foreground: #fff;
+  --sh-inline-background: #161616;
+  --sh-highlighted-line: #ffffff25;
+  --sh-class: #ffc799;
+  --sh-comment: #8b8b8b94;
+  --sh-entity: #ffc799;
+  --sh-identifier: #fff;
+  --sh-jsxliterals: #fff;
+  --sh-keyword: #a0a0a0;
+  --sh-property: #ffc799;
+  --sh-sign: #a0a0a0;
+  --sh-string: #99ffe4;
 }
 
 .dark {
@@ -78,12 +88,26 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --sh-background: #101010;
+  --sh-border: #282828;
+  --sh-foreground: #fff;
+  --sh-inline-background: #161616;
+  --sh-highlighted-line: #1b1b1b;
+  --sh-class: #ffc799;
+  --sh-comment: #8b8b8b94;
+  --sh-entity: #ffc799;
+  --sh-identifier: #fff;
+  --sh-jsxliterals: #fff;
+  --sh-keyword: #a0a0a0;
+  --sh-property: #ffc799;
+  --sh-sign: #a0a0a0;
+  --sh-string: #99ffe4;
 }
 
 @theme inline {
   --font-sans: "Inter Variable", sans-serif;
   --font-heading: "Geist Mono Variable", monospace;
-  --p-font-family-heading: var(--font-heading);
+  --font-mono: "Geist Mono Variable", monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -122,6 +146,73 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer components {
+  .mdx-content {
+    @apply prose prose-neutral max-w-none dark:prose-invert prose-sm;
+  }
+
+  .mdx-content :where(h1, h2) {
+    @apply font-medium font-mono mx-4;
+  }
+
+  .mdx-content :where(h3) {
+    @apply uppercase font-medium text-sm tracking-widest px-4 border-b-2 border-t-2 py-2 text-neutral-500 mb-4;
+  }
+
+  .mdx-content :where(h3:has(+ pre)) {
+    @apply mb-0 border-b-0;
+  }
+
+  .mdx-content :where(p, ul, ol, blockquote) {
+    @apply mx-4;
+  }
+
+  .mdx-content :where(a) {
+    @apply font-medium text-primary underline decoration-primary/35 underline-offset-4 transition-colors;
+  }
+
+  .mdx-content :where(a:hover) {
+    @apply text-primary/80;
+  }
+
+  .mdx-content :where(blockquote) {
+    @apply border-l-white/15 text-white/70;
+  }
+
+  .mdx-content :where(hr) {
+    @apply border-white/10;
+  }
+
+  .mdx-content :where(code):not(:where(pre code)) {
+    color: var(--sh-foreground);
+    border-color: var(--sh-border);
+    @apply border border-white/10 bg-white/5 px-1.5 py-0.5 font-heading text-[0.85em] font-normal text-foreground;
+  }
+
+  .mdx-content :where(code):not(:where(pre code))::before,
+  .mdx-content :where(code):not(:where(pre code))::after {
+    content: "";
+  }
+
+  .mdx-content :where(pre) {
+    border-color: var(--sh-border);
+    @apply overflow-x-auto rounded-none border border-r-0 border-l-0 px-0 py-4 shadow-none bg-muted/20;
+  }
+
+  .mdx-content :where(pre code) {
+    color: var(--sh-foreground);
+    @apply grid min-w-full bg-transparent p-0 font-heading text-[0.9rem] leading-6 text-white;
+  }
+
+  .mdx-content :where(pre code .sh__line) {
+    @apply block px-4;
+  }
+
+  .mdx-content :where(pre code .sh__line--highlighted) {
+    background-color: var(--sh-highlighted-line);
+  }
 }
 
 @layer base {
