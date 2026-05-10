@@ -28,17 +28,22 @@ export const Route = createFileRoute("/")({
 
 function RouteComponent() {
   return (
-    <section className="space-y-6 px-4 py-8">
-      <h1 className="font-semibold text-3xl tracking-tight">
-        Developer, engineering leader, and inclusive tech advocate.
+    <section className="space-y-6 px-4">
+      <h1 className="font-bold font-mono text-xl tracking-tight">
+        Johnie Hjelm.
       </h1>
-      <p className="max-w-2xl text-base/7 opacity-80">
-        I write about AI-augmented engineering, leadership, inclusive teams, and
-        the systems that help people do their best work.
+      <p className="text-muted-foreground">
+        Since my teenage years, I have engaged in both design and coding,
+        unwilling to be confined to just one specialty. I have excelled as a
+        Jack of all Trades across different teams, engaging in a wide range of
+        tasks from graphic and digital design to both frontend and backend
+        development, along with product and API strategy.
       </p>
-      <p className="max-w-2xl text-base/7 opacity-80">
-        Start with the writing archive for essays and notes, or read more about
-        my work and approach on the about page.
+      <p className="text-muted-foreground">
+        In addition to technology, I have a strong enthusiasm for efficient team
+        management and intelligent work habits. I think a team‘s wellness is
+        crucial for effective operations, and although ideas inspire innovation,
+        it‘s the execution that leads to success.
       </p>
     </section>
   );

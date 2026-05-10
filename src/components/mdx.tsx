@@ -27,7 +27,7 @@ type CustomImageProps = ImgHTMLAttributes<HTMLImageElement> & {
 };
 
 const RoundedImage: React.FC<CustomImageProps> = ({ alt, ...props }) => (
-  <img alt={alt} height="auto" width="auto" {...props} />
+  <img alt={alt} className="my-4" height="auto" width="auto" {...props} />
 );
 
 export function MDX({ code }: { code: string }) {
