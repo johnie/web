@@ -73,6 +73,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <div className="space-x-4">
                 <Link to="/">Home</Link>
                 <Link to="/writing">Writing</Link>
+                <Link to="/notes">Notes</Link>
                 <Link params={{ _splat: "about" }} to="/$">
                   About
                 </Link>

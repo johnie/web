@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { allPages, allPosts } from "content-collections";
+import { allNotes, allPages, allPosts } from "content-collections";
 import { absoluteUrl } from "@/lib/site";
 
 interface SitemapEntry {
@@ -51,6 +51,10 @@ export const Route = createFileRoute("/sitemap.xml")({
             priority: 0.7,
           }));
 
+        const notes = [...allNotes].sort((a, b) =>
+          b.publishedAt.localeCompare(a.publishedAt)
+        );
+
         const staticRoutes: SitemapEntry[] = [
           {
             changefreq: "weekly",
@@ -63,6 +67,12 @@ export const Route = createFileRoute("/sitemap.xml")({
             lastmod: posts[0]?.lastmod ?? new Date().toISOString(),
             loc: absoluteUrl("/writing"),
             priority: 0.9,
+          },
+          {
+            changefreq: "weekly",
+            lastmod: notes[0]?.publishedAt ?? new Date().toISOString(),
+            loc: absoluteUrl("/notes"),
+            priority: 0.8,
           },
         ];
 
