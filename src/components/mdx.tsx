@@ -2,6 +2,7 @@ import { MDXContent } from "@content-collections/mdx/react";
 import type { Link } from "@tanstack/react-router";
 import { Link as RouterLink } from "@tanstack/react-router";
 import type { ImgHTMLAttributes } from "react";
+import { Callout as CalloutComponent } from "./callout";
 import { Badge } from "./ui/badge";
 
 type CustomLinkProps = React.ComponentProps<typeof Link> & {
@@ -34,11 +35,18 @@ export function MDX({ code }: { code: string }) {
   return <MDXContent code={code} components={components} />;
 }
 
+const Callout = (props: React.ComponentProps<typeof CalloutComponent>) => (
+  <div className="mx-4 my-6">
+    <CalloutComponent {...props} />
+  </div>
+);
+
 export const components = {
   a: CustomLink,
   img: RoundedImage,
   Image: RoundedImage,
   Badge,
+  Callout,
 };
 
 export type MDXComponents = typeof components;
