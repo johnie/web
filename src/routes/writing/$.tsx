@@ -89,7 +89,7 @@ function PostPage() {
   });
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-8">
+    <div>
       <article className="mdx-content" id="post-start">
         <div className="mb-4 flex items-center gap-3 px-4 font-medium font-mono text-muted-foreground text-xs">
           <span className="font-bold text-emerald-400">#{page.edition}</span>
@@ -98,7 +98,7 @@ function PostPage() {
           <span className="text-border-foreground">·</span>
           <span>{page.readingTime}</span>
         </div>
-        <h1 className="mb-4 font-bold text-2xl tracking-tight">{page.title}</h1>
+        <h1 className="mb-4 font-bold text-xl tracking-tight">{page.title}</h1>
         {page.leading && (
           <p className="mt-0 font-mono text-muted-foreground text-sm">
             {page.summary}

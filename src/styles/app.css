@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/inter";
-@import "@fontsource-variable/geist-mono";
 @import "@fontsource-variable/jetbrains-mono";
 @import "@fontsource-variable/lora";
 @plugin "@tailwindcss/typography";
@@ -148,11 +146,12 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --text-sm: 0.8rem;
 }
 
 @layer components {
   .mdx-content {
-    @apply prose prose-neutral max-w-none dark:prose-invert prose-headings:font-heading;
+    @apply prose prose-neutral max-w-none dark:prose-invert prose-headings:font-heading prose-sm;
   }
 
   .mdx-content :where(h1, h2) {
@@ -160,11 +159,11 @@
   }
 
   .mdx-content :where(h2) {
-    @apply text-xl font-semibold tracking-tight my-4;
+    @apply text-lg font-semibold tracking-tight my-4;
   }
 
   .mdx-content :where(h3) {
-    @apply font-bold uppercase tracking-[0.2em] text-muted-foreground px-4 border-b-2 border-t-2 py-2 text-sm mb-4;
+    @apply font-bold uppercase tracking-[0.2em] text-muted-foreground px-4 border-b-2 border-t-2 py-2 text-xs mb-4;
   }
 
   .mdx-content :where(h3:has(+ pre)) {
@@ -194,7 +193,7 @@
   .mdx-content :where(code):not(:where(pre code)) {
     color: var(--sh-foreground);
     border-color: var(--sh-border);
-    @apply border border-white/10 bg-white/5 px-1.5 py-0.5 font-heading text-[0.85em] font-normal text-foreground;
+    @apply border border-white/10 bg-white/5 px-1.5 py-0.5 font-heading font-normal text-foreground;
   }
 
   .mdx-content :where(code):not(:where(pre code))::before,
@@ -209,7 +208,7 @@
 
   .mdx-content :where(pre code) {
     color: var(--sh-foreground);
-    @apply grid min-w-full bg-transparent p-0 font-heading text-[0.9rem] leading-6 text-white;
+    @apply grid min-w-full bg-transparent p-0 font-heading text-sm leading-6 text-white;
   }
 
   .mdx-content :where(pre code .sh__line) {
