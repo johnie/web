@@ -47,7 +47,7 @@ const HeaderPath = () => {
           </Link>
           <span>/</span>
           <div
-            className="max-w-16 overflow-hidden text-ellipsis whitespace-nowrap text-accent-foreground md:max-w-xs"
+            className="max-w-24 overflow-hidden text-ellipsis whitespace-nowrap text-accent-foreground md:max-w-xs"
             title={nestedPath}
           >
             {nestedPath}
@@ -62,7 +62,7 @@ const HeaderPath = () => {
 
 export const Header = () => (
   <div className="sticky top-0 z-50 border-accent border-b-2 bg-background/70 backdrop-blur-md">
-    <header className="mx-auto flex w-full max-w-2xl items-center justify-between border-accent border-r-2 border-l-2 px-4 py-4">
+    <header className="mx-auto flex w-full max-w-2xl items-center justify-between border-accent border-r-0 border-l-0 p-2 md:border-r-2 md:border-l-2 md:p-4">
       <div className="inline-flex items-center font-mono">
         <Link to="/">
           <Logo height={21} width={17} />
