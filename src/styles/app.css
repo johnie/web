@@ -166,6 +166,10 @@
     @apply font-bold uppercase tracking-[0.2em] text-muted-foreground px-4 border-b-2 border-t-2 py-2 text-xs mb-4;
   }
 
+  .mdx-content :where(.notes-divider + h3) {
+    @apply mt-0 border-t-0;
+  }
+
   .mdx-content :where(h3:has(+ pre)) {
     @apply mb-0 border-b-0;
   }
@@ -221,6 +225,14 @@
 
   .mdx-content [data-slot="card-content"] p {
     @apply m-0;
+  }
+
+  .mdx-content :where(img) {
+    @apply my-4;
+  }
+
+  .mdx-content :where(.writing-divider + img) {
+    @apply mt-0 my-0 mb-4;
   }
 }
 

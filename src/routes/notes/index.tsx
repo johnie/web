@@ -27,12 +27,8 @@ function NotesIndex() {
 
   return (
     <section>
-      <h1 className="mb-2 font-semibold text-3xl tracking-tight">Notes</h1>
-      <p className="mb-8 max-w-2xl text-base/7 opacity-80">
-        {DEFAULT_DESCRIPTION}
-      </p>
-      <div className="space-y-10">
-        {notes.map((note, index) => {
+      <div className="space-y-16">
+        {notes.map((note) => {
           const formattedDate = new Date(note.publishedAt).toLocaleDateString(
             "sv-SE",
             {
@@ -48,8 +44,9 @@ function NotesIndex() {
               id={note.slug}
               key={note._meta.path}
             >
+              <Divider className="notes-divider" />
               <MDX code={note.mdx} />
-              <div className="mx-4 mb-4 flex items-center gap-3 font-medium font-mono text-muted-foreground text-xs">
+              <div className="mx-4 flex items-center gap-3 font-medium font-mono text-muted-foreground text-xs">
                 <time dateTime={note.publishedAt}>{formattedDate}</time>
                 {note.type && (
                   <>
@@ -58,7 +55,6 @@ function NotesIndex() {
                   </>
                 )}
               </div>
-              {index < notes.length - 1 ? <Divider /> : null}
             </article>
           );
         })}

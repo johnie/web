@@ -1,6 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
+import { Spotify } from "@/components/spotify";
 import { buildSeo, jsonLdScript } from "@/lib/seo";
 import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+
+const getSong = createServerFn({ method: "GET" }).handler(async () => {
+  const { getCurrentOrLastSong } = await import("@/lib/spotify");
+  return getCurrentOrLastSong();
+});
 
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -19,6 +26,10 @@ const personSchema = {
 };
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    const song = await getSong();
+    return { song };
+  },
   head: () => ({
     ...buildSeo({ path: "/", description: DEFAULT_DESCRIPTION }),
     scripts: [jsonLdScript([websiteSchema, personSchema])],
@@ -27,6 +38,7 @@ export const Route = createFileRoute("/")({
 });
 
 function RouteComponent() {
+  const { song } = Route.useLoaderData();
   return (
     <section className="space-y-6 px-4">
       <h1 className="font-bold font-mono text-xl tracking-tight">
@@ -45,6 +57,7 @@ function RouteComponent() {
         crucial for effective operations, and although ideas inspire innovation,
         it‘s the execution that leads to success.
       </p>
+      <Spotify song={song} />
     </section>
   );
 }

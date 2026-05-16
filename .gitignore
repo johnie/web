@@ -3,6 +3,7 @@ build/
 node_modules/
 *.log
 *.lock
+*.vars
 .DS_Store
 .tsbuildinfo
 .tanstack/

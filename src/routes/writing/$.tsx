@@ -89,7 +89,7 @@ function PostPage() {
   });
 
   return (
-    <div>
+    <div className="py-4">
       <article className="mdx-content" id="post-start">
         <div className="mb-4 flex items-center gap-3 px-4 font-medium font-mono text-muted-foreground text-xs">
           <span className="font-bold text-emerald-400">#{page.edition}</span>
@@ -104,7 +104,7 @@ function PostPage() {
             {page.summary}
           </p>
         )}
-        <Divider />
+        <Divider className="writing-divider" />
         <MDX code={page.mdx} />
       </article>
 
